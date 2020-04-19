@@ -1,0 +1,40 @@
+<html>
+
+  <head>
+    <title>BloomeChatbot {{ multichannel }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@700&display=swap" rel="stylesheet">
+    <link rel='shortcut icon' href='favicon.png'>
+    <link rel='stylesheet' href='index.css'>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="{{ googleClientID }}">
+  </head>
+
+  <body>
+    <div id='panel'>
+      <div class="g-signin2 button" data-onsuccess="gLogin" onclick = 'clickLogin(event.target);'></div>
+    </div>
+    <img id='logo' src='favicon.png'>
+    <div id='title'>BloomeChatbot {{ multichannel }}!</div>
+    <script src='https://bloomechatbot.herokuapp.com/api/scripts/BloomeBot'></script>
+  </body>
+  <script>
+  window.clickLogin = target => {
+    const buttons = document.getElementsByClassName('abcRioButtonContentWrapper');
+    for (let k = 0; k < buttons.length; k += 1) buttons[k].click();
+  };
+  window.gLogin = googleUser => {
+    const profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+    console.log('profile', profile);
+  }
+  window.gLogout = () => {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+  </script>
+</html>
